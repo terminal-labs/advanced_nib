@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+{% include 'head.html' %}
+
+<body>
+    <div class="pushable">
+        {% include 'menu.html' %}
+        <div class="pusher">
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui container segment">
+                <div class="ui grid">
+                    <div class="three column row">
+                        <div class="column">
+                            <div class="ui centered card">
+                                <div class="content">
+                                    <div class="header">You don't have any clusters yet</div>
+                                </div>
+                                <a href="create-cluster">
+                                    <div class="ui bottom attached button">
+                                        Create New Cluster
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui grid">
+                    <div class="three column row">
+                        <div class="column">
+                            <div class="ui centered card">
+                                <div class="content">
+                                    <div class="header">Cluster #1</div>
+                                </div>
+                                <a href="/cluster/cluster_1">
+                                    <div class="ui bottom attached button">
+                                        <i class="add icon"></i>
+                                        Manage
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="ui centered card">
+                                <div class="content">
+                                    <div class="header">Cluster #2</div>
+                                </div>
+                                <a href="/cluster/cluster_2">
+                                    <div class="ui bottom attached button">
+                                        <i class="add icon"></i>
+                                        Manage
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="ui centered card">
+                                <div class="content">
+                                    <div class="header">Cluster #3</div>
+                                </div>
+                                <a href="/cluster/cluster_3">
+                                    <div class="ui bottom attached button">
+                                        <i class="add icon"></i>
+                                        Manage
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'end.html' %}
+</body>
+
+</html>

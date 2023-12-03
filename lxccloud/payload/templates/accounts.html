@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{% include 'head.html' %}
+
+<body>
+    <div class="pushable">
+        {% include 'menu.html' %}
+        <div class="pusher">
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui container segment">
+                <button class="ui primary button">
+                    Upload Cluster Specification File
+                </button>
+                <div class="ui divider"></div>
+                <a href="/logout">
+                    <button class="ui button">Logout</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% include 'end.html' %}
+</body>
+
+</html>

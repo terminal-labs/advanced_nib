@@ -1,0 +1,8 @@
+[program:lxccloud]
+directory=/vagrant
+command=/bin/bash -c "source /home/vagrant/dpe/lxccloud/miniconda3/bin/activate && source activate lxccloud && source env.sh && lxccloud servers runflaskserver"
+autostart=true
+autorestart=true
+startretries=3
+stderr_logfile=/var/log/lxccloud.err.log
+stdout_logfile=/var/log/lxccloud.out.log

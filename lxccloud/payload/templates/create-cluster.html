@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{% include 'head.html' %}
+
+<body>
+    <div class="pushable">
+        {% include 'menu.html' %}
+        <div class="pusher">
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui container segment">
+                <div class="ui basic segment">
+                    <div class="ui grid">
+                        <div class="three column row">
+                            {% for cluster in clusters %}
+                            <div class="column">
+                                <div class="ui centered card">
+                                    <div class="content">
+                                        <div class="header">4 Worker Hadoop Cluster</div>
+                                        <div class="description">
+                                            {{ cluster.body }}
+                                        </div>
+                                    </div>
+                                    <div id="hadoop" class="ui bottom attached button target_more_info">
+                                        <i class="add icon"></i>
+                                        More info
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'end.html' %}
+</body>
+
+</html>

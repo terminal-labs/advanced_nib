@@ -1,0 +1,6 @@
+build-essential
+zip
+unzip
+tree
+wget
+nano

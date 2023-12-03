@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+{% include 'head.html' %}
+
+<body>
+    <a href="/boxinfo">
+        <button>box info</button>
+    </a>
+    <br><br>
+    <a href="/system/health">
+        <button>gui system health</button>
+    </a>
+    <br><br>
+    <a href="/system/test">
+        <button>gui system test</button>
+    </a>
+    <br><br>
+    <a href="/system/info">
+        <button>gui system info</button>
+    </a>
+    <br><br>
+    <a href="/js-api/system/health">
+        <button>js-api system health</button>
+    </a>
+    <br><br>
+    <a href="/js-api/system/test">
+        <button>js-api system test</button>
+    </a>
+    <br><br>
+    <a href="/js-api/system/info">
+        <button>js-api system info</button>
+    </a>
+    <br><br>
+    <a href="/fileio-api/system/health">
+        <button>fileio-api system health</button>
+    </a>
+    <br><br>
+    <a href="/fileio-api/system/test">
+        <button>fileio-api system test</button>
+    </a>
+    <br><br>
+    <a href="/fileio-api/system/info">
+        <button>fileio-api system info</button>
+    </a>
+    <br><br>
+    <p><input type="button" id="echo" value="echo" /></p>
+    <p><input type="button" id="clusterinfo" value="cluster info" /></p>
+    <p><input type="button" id="anyactivebuilds" value="any active builds" /></p>
+    <p><input type="button" id="rpc" value="rpc" /></p>
+    <p>
+        <form action="/files/pdf/34234" target="_blank">
+            <input type="submit" id="createpdf" value="create pdf" />
+        </form>
+    </p>
+    <p>
+        <input type="file" name="file" id="sel-file" text="choose file" />
+        <br>
+        <br>
+        <button id="send" name="send">send file</button>
+    </p>
+    <p>
+        test math js
+        <div id="target_math_test"></div>
+    </p>
+    <p>
+        test voca js
+        <div id="target_voca_test"></div>
+    </p>
+    <p>
+        test locache js
+        <div id="target_locache_test"></div>
+    </p>
+    <p>
+        test tiny stack js
+        <div id="target_tinystack_test"></div>
+    </p>
+    <p>
+        test is js
+        <div id="target_is_test"></div>
+    </p>
+    <p>
+        test id js
+        <div id="target_id_test"></div>
+    </p>
+    <p>
+        test base64 js
+        <div id="target_base64_test"></div>
+    </p>
+
+
+    <script>
+        // use #! to hash
+        router = new Navigo(null, false, false);
+        router.on({
+            // 'view' is the id of the div element inside which we render the HTML
+            '/testpage': () => {}
+        });
+        router.resolve();
+        var mystack = stack();
+        var jane = "Jane Doe";
+        var john = "John Doe";
+        mystack.push(john);
+        mystack.push(jane);
+
+        function test() {
+            //alert("data");
+        }
+
+        function test2() {
+            //alert("more data");
+        }
+
+        start_polling_service('test', test, 1);
+        start_polling_service('test2', test2, 3);
+        //stop_polling_service('test');
+
+        function alert_on_callback(data) {
+            alert(JSON.stringify(data));
+        }
+        if (pathname == "/create-cluster") {
+            page_create_cluster();
+        }
+
+        $(document).ready(function() {
+
+            $('#send').on('click', function() {
+                var file = $('#sel-file').get(0).files[0],
+                    formData = new FormData();
+
+                formData.append('file', file);
+                console.log(file);
+                $.ajax({
+                    beforeSend: function(xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token() }}');
+                    },
+                    url: '/files/upload',
+                    type: 'POST',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    data: formData,
+                    xhr: function() {
+                        var jqXHR = null;
+                        if (window.ActiveXObject) {
+                            jqXHR = new window.ActiveXObject("Microsoft.XMLHTTP");
+                        } else {
+                            jqXHR = new window.XMLHttpRequest();
+                        }
+                        //Upload progress
+                        jqXHR.upload.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+                                //Do something with upload progress
+                                console.log('Uploaded percent', percentComplete);
+                            }
+                        }, false);
+                        //Download progress
+                        jqXHR.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+                                //Do something with download progress
+                                console.log('Downloaded percent', percentComplete);
+                            }
+                        }, false);
+                        return jqXHR;
+                    },
+                    success: function(data) {
+                        //Do something success-ish
+                        console.log('Completed.');
+                    }
+                });
+            });
+
+            var math_test_data = math.round(math.e, 3);
+            $("#target_math_test").html(math_test_data);
+            var voca_test_data = v.slugify('What a wonderful world');
+            $("#target_voca_test").html(voca_test_data);
+            locache.set("my_key", "my_value");
+            var locache_test_data = locache.get("my_key");
+            $("#target_locache_test").html(locache_test_data);
+            var tinystack_test_data = mystack.peek();
+            $("#target_tinystack_test").html(tinystack_test_data);
+            var is_test_data = is.array(['foo', 'bar', 'baz']);
+            $("#target_is_test").html(is_test_data);
+            var id_test_data = id_generator();
+            $("#target_id_test").html(id_test_data);
+            var base64_test_data = Base64.encode('test data');
+            $("#target_base64_test").html(base64_test_data);
+            $("#echo").click(function() {
+                post_json("http://127.0.0.1:8080/js-api/v1.0/post/echo", {
+                    "email": "hey@mail.com",
+                    "password": "101010"
+                },
+                "{{ csrf_token() }}",
+                alert_on_callback);
+            });
+            $("#clusterinfo").click(function() {
+                post_json("/js-api/v1.0/post/generalclusterinfo", {
+                    "name": "hadoop-big"
+                },
+                "{{ csrf_token() }}",
+                alert_on_callback);
+            });
+            $("#anyactivebuilds").click(function() {
+                post_json("/js-api/v1.0/post/anyactivebuilds", {
+                    "user": "uuid"
+                },
+                "{{ csrf_token() }}",
+                alert_on_callback);
+            });
+            $("#rpc").click(function() {
+                post_json("/js-api/v1.0/post/rpc", {
+                    "user": "uuid"
+                },
+                "{{ csrf_token() }}",
+                alert_on_callback);
+            });
+        });
+    </script>
+
+</body>
+<footer>
+</footer>
+
+</html>
